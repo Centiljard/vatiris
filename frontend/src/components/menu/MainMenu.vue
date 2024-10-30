@@ -62,6 +62,10 @@ const menuItems = reactive({
     ATFM: {
         ECFMP: "ECFMP",
     },
+    Tools: {
+        "ATC Bookings": "booking",
+        NOTEPAD: "notepad",
+    },
     Documents: {
         CHECKLIST: {
             "Open position": "checklist-open-position",
@@ -163,7 +167,6 @@ const menuItems = reactive({
         },
         "TEXT ALIAS": "alias",
         "AIRCRAFT TYPES": "aircraft",
-        NOTEPAD: "notepad",
     },
     DCT: {}, // We'll populate this dynamically
 } as any)

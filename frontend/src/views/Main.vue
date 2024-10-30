@@ -52,6 +52,7 @@ import { onBeforeUnmount, onUnmounted, shallowReactive } from "vue"
 import { useWindowsStore } from "@/stores/windows"
 import directsData from "@/data/dct/directs.json"
 import { metarAirports, wxAirports } from "@/metcommon"
+import Booking from "@/components/Booking.vue"
 
 export interface WindowSpec {
     title: string
@@ -147,6 +148,12 @@ const availableWindows = shallowReactive({
         props: { book: "lop", page: "esgt" },
         width: 800,
         height: 600,
+    },
+    booking: {
+    title: "ATC Booking",
+    component: Booking,
+    width: 400,
+    height: 400,
     }
 } as any)
 
