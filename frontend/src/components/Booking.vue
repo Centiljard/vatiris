@@ -4,16 +4,15 @@
         variant="text"
         rounded="0"
         size="small"
-        :color="ESAA ? 'white' : 'grey-lighten-1'"
-        @click="ESAA = !ESAA"
+        :color="FIRS.ESAA ? 'white' : 'grey-lighten-1'"
+        @click="FIRS.ESAA = !FIRS.ESAA"
         >ESAA</v-btn
         >
         <v-btn
         variant="text"
         rounded="0"
         size="small"
-        :color="FIR.length > 0 ? 'white' : 'grey-lighten-1'"
-        @click="adFilter = ''"
+        :color="FIRS.EDWW || FIRS.EKDK || FIRS.EFIN || FIRS.ENOR || FIRS.EVRR || FIRS.EETT || FIRS.EPWW || FIRS.UMKK ? 'white' : 'grey-lighten-1'"
         >FIRs
         <v-menu
             activator="parent"
@@ -22,50 +21,50 @@
             >
             <v-list density="compact">
                 <v-list-item
-                @click="EDWW = !EDWW"
-                :class="EDWW ? '' : 'text-grey'"
+                @click="FIRS.EDWW = !FIRS.EDWW"
+                :class="FIRS.EDWW ? '' : 'text-grey'"
                 > <v-list-item-title>EDWW</v-list-item-title>
                 </v-list-item>
 
                 <v-list-item
-                @click="EKDK = !EKDK"
-                :class="EKDK ? '' : 'text-grey'"
+                @click="FIRS.EKDK = !FIRS.EKDK"
+                :class="FIRS.EKDK ? '' : 'text-grey'"
                 > <v-list-item-title>EKDK</v-list-item-title>
                 </v-list-item>
 
                 <v-list-item
-                @click="EFIN = !EFIN"
-                :class="EFIN ? '' : 'text-grey'"
+                @click="FIRS.EFIN = !FIRS.EFIN"
+                :class="FIRS.EFIN ? '' : 'text-grey'"
                 > <v-list-item-title>EFIN</v-list-item-title>
                 </v-list-item>
 
                 <v-list-item
-                @click="ENOR = !ENOR"
-                :class="ENOR ? '' : 'text-grey'"
+                @click="FIRS.ENOR = !FIRS.ENOR"
+                :class="FIRS.ENOR ? '' : 'text-grey'"
                 > <v-list-item-title>ENOR</v-list-item-title>
                 </v-list-item>
 
                 <v-list-item
-                @click="EVRR = !EVRR"
-                :class="EVRR ? '' : 'text-grey'"
+                @click="FIRS.EVRR = !FIRS.EVRR"
+                :class="FIRS.EVRR ? '' : 'text-grey'"
                 > <v-list-item-title>EVRR</v-list-item-title>
                 </v-list-item>
 
                 <v-list-item
-                @click="EETT = !EETT"
-                :class="EETT ? '' : 'text-grey'"
+                @click="FIRS.EETT = !FIRS.EETT"
+                :class="FIRS.EETT ? '' : 'text-grey'"
                 > <v-list-item-title>EETT</v-list-item-title>
                 </v-list-item>
 
                 <v-list-item
-                @click="EPWW = !EPWW"
-                :class="EPWW ? '' : 'text-grey'"
+                @click="FIRS.EPWW = !FIRS.EPWW"
+                :class="FIRS.EPWW ? '' : 'text-grey'"
                 > <v-list-item-title>EPWW</v-list-item-title>
                 </v-list-item>
 
                 <v-list-item
-                @click="UMKK = !UMKK"
-                :class="UMKK ? '' : 'text-grey'"
+                @click="FIRS.UMKK = !FIRS.UMKK"
+                :class="FIRS.UMKK ? '' : 'text-grey'"
                 > <v-list-item-title>UMKK</v-list-item-title>
                 </v-list-item>
             </v-list>
@@ -97,23 +96,21 @@
 
 <script setup lang="ts">
 import useEventBus from "@/eventbus"
-import { ref, reactive, onMounted, computed, watch } from "vue"
+import { ref, onMounted, computed, watch } from "vue"
 
 import bookingsData from "@/data/ATC-Booking.json"
-import type { ListFormat } from "typescript";
 
-const ESAA = ref(true)
-const EDWW = ref(false)
-const EKDK = ref(false)
-const EFIN = ref(false)
-const ENOR = ref(false)
-const EVRR = ref(false)
-const EETT = ref(false)
-const EPWW = ref(false)
-const UMKK = ref(false)
-
-const FIR = reactive(["ALL"])
-const adFilter = ref("")
+const FIRS = ref( {
+  ESAA : true,
+  EDWW : false,
+  EKDK : false,
+  EFIN : false,
+  ENOR : false,
+  EVRR : false,
+  EETT : false,
+  EPWW : false,
+  UMKK : false
+})
 
 type booking = {
   type: string;
@@ -132,22 +129,31 @@ const error = ref<string | null>(null);
 const loadBookings = () => {
   let tempBooking: bookingDict<booking> = {};
 
-  if (ESAA.value) {
-    for (var position in bookingsData['ESAA']) {
-      try {
-        tempBooking[position] = {
-          type : bookingsData['ESAA'][position].type,
-          start : bookingsData['ESAA'][position][0].start,
-          end : bookingsData['ESAA'][position][0].end
-        };
+  //Loop throu all FIR 
+  for (var FIR in FIRS.value) {
+    console.log(FIR)
+    console.log(FIRS.value[FIR])
+
+    //If user want to se it
+    if (FIRS.value[FIR]) {
       
-      } catch (error) {
-        console.error(error)
+      //Loop all bookings
+      for (var position in bookingsData[FIR]) {
+        try { //Trys to add it to "tempBooking" 
+          tempBooking[position] = {
+            type : bookingsData[FIR][position].type,
+            start : bookingsData[FIR][position][0].start,
+            end : bookingsData[FIR][position][0].end
+          };
+        
+        } catch (error) {
+          console.error(error)
+        }
       }
     }
   }
+
   bookingGroups.value = tempBooking
-  console.log(tempBooking)
   loading.value = false;
   
 }
@@ -158,7 +164,7 @@ const populateBooking = computed(() => {
   return bookingGroups.value ? bookingGroups.value : []
 });
 
-watch([ESAA, EDWW, EKDK, EFIN, ENOR, EVRR, EETT, EPWW, UMKK], () => {
+watch([FIRS.value], () => {
   loadBookings()
 })
 

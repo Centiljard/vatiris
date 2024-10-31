@@ -111,7 +111,66 @@
         ]
     },
     "EDWW": {},
-    "EKDK": {},
+    "EKDK": {
+        "EKCH_W_APP": [
+            {
+                "type": "training",
+                "start": "14:00:00",
+                "end": "16:00:00"
+            },
+            {
+                "type": "booking",
+                "start": "19:00:00",
+                "end": "21:00:00"
+            },
+            {
+                "type": "booking",
+                "start": "19:00:00",
+                "end": "21:00:00"
+            }
+        ],
+        "EKCH_A_TWR": [
+            {
+                "type": "training",
+                "start": "14:00:00",
+                "end": "16:00:00"
+            },
+            {
+                "type": "training",
+                "start": "19:30:00",
+                "end": "21:30:00"
+            },
+            {
+                "type": "booking",
+                "start": "19:00:00",
+                "end": "21:00:00"
+            }
+        ],
+        "EKDK_CTR": [
+            {
+                "type": "booking",
+                "start": "14:00:00",
+                "end": "16:00:00"
+            },
+            {
+                "type": "training",
+                "start": "19:00:00",
+                "end": "21:00:00"
+            },
+            {
+                "type": "exam",
+                "start": "19:00:00",
+                "end": "21:00:00"
+            }
+        ],
+        "EKCH_A_GND": [
+            {
+                "type": "event",
+                "start": "15:00:00",
+                "end": "17:00:00"
+            }
+        ]
+    },
     "EFIN": {},
     "ENOR": {},
     "EVRR": {},
