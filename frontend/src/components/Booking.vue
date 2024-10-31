@@ -114,6 +114,7 @@ const FIRS = ref( {
 
 type booking = {
   type: string;
+  date: string;
   start: string;
   end: string;
 };
@@ -142,6 +143,7 @@ const loadBookings = () => {
         try { //Trys to add it to "tempBooking" 
           tempBooking[position] = {
             type : bookingsData[FIR][position].type,
+            date : bookingsData[FIR][position].date,
             start : bookingsData[FIR][position][0].start,
             end : bookingsData[FIR][position][0].end
           };
