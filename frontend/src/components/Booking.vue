@@ -74,16 +74,36 @@
         
     </div>
     <div>
-    <h1>Test</h1>
+      <div v-if="loading">Loading...</div>
+      <div v-else-if="error">Error: {{ error }}</div>
+      <div v-else class="card-grid">
+        <v-card
+        v-for="(group, index) in populateBooking"
+        :key="index"
+        class="direct-card"
+        variant="outlined"
+      >
+        <div class="card-title">{{ index }}</div>
+        <v-card-text>
+          <div class="item-container">
+              {{ group.start }}
+              {{ group.end }}
+          </div>
+        </v-card-text>
+      </v-card>
+      </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import useEventBus from "@/eventbus"
-import { ref, reactive } from "vue"
+import { ref, reactive, onMounted, computed, watch } from "vue"
 
-const EDWW = ref(true)
+import bookingsData from "@/data/ATC-Booking.json"
+import type { ListFormat } from "typescript";
+
 const ESAA = ref(true)
+const EDWW = ref(false)
 const EKDK = ref(false)
 const EFIN = ref(false)
 const ENOR = ref(false)
@@ -95,9 +115,106 @@ const UMKK = ref(false)
 const FIR = reactive(["ALL"])
 const adFilter = ref("")
 
-// Set up event bus listener
-const bus = useEventBus();
+type booking = {
+  type: string;
+  start: string;
+  end: string;
+};
+
+interface bookingDict<booking> {
+  [position: string]: booking
+}
+
+const bookingGroups = ref<bookingDict<booking>>();
+const loading = ref(true);
+const error = ref<string | null>(null);
+
+const loadBookings = () => {
+  let tempBooking: bookingDict<booking> = {};
+
+  if (ESAA.value) {
+    for (var position in bookingsData['ESAA']) {
+      try {
+        tempBooking[position] = {
+          type : bookingsData['ESAA'][position].type,
+          start : bookingsData['ESAA'][position][0].start,
+          end : bookingsData['ESAA'][position][0].end
+        };
+      
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  }
+  bookingGroups.value = tempBooking
+  console.log(tempBooking)
+  loading.value = false;
+  
+}
+
+const populateBooking = computed(() => {
+  //const selectedBooking = bookingGroups.value.find(booking => booking.cid == 1782648)
+  //return selectedBooking ? selectedBooking : []
+  return bookingGroups.value ? bookingGroups.value : []
+});
+
+watch([ESAA, EDWW, EKDK, EFIN, ENOR, EVRR, EETT, EPWW, UMKK], () => {
+  loadBookings()
+})
+
+onMounted(() => {
+  loadBookings()
+
+  // Set up event bus listener
+  const bus = useEventBus();
   bus.on("refresh", () => {
+    loadBookings()
     console.log("Refresh")
   });
+});
 </script>
+
+<style scoped>
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px;
+}
+
+.card-title {
+  position: absolute;
+  font-size: 0.9rem;
+  z-index: 1;
+  background-color: #dddddd;
+  top: -10px;
+  left: 8px;
+  padding: 0 4px;
+}
+
+.direct-card {
+  padding-top: 4px;
+  flex: 1 1 175px;
+  margin: 0;
+  position: relative;
+  overflow: visible !important;
+}
+
+.item-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.item-chip {
+  z-index: 2;
+  font-size: 0.9rem;
+  padding: 0 2px;
+  height: 20px;
+  min-width: 20px;
+}
+
+.v-card-text {
+  padding: 6px;
+}
+</style>

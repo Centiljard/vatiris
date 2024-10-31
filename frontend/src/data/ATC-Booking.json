@@ -1,0 +1,121 @@
+{
+    "ESAA": {
+        "ESGG_GND": [
+            {
+                "type": "booking",
+                "start": "17:00:00",
+                "end": "19:00:00"
+            },
+            {
+                "type": "booking",
+                "start": "19:00:00",
+                "end": "21:00:00"
+            },
+            {
+                "type": "booking",
+                "start": "17:00:00",
+                "end": "20:00:00"
+            }
+        ],
+        "ESGG_DEL": [
+            {
+                "type": "booking",
+                "start": "16:00:00",
+                "end": "18:00:00"
+            }
+        ],
+        "ESOS_1_CTR": [
+            {
+                "type": "event",
+                "start": "18:00:00",
+                "end": "19:30:00"
+            }
+        ],
+        "ESSA_DEL": [
+            {
+                "type": "event",
+                "start": "18:00:00",
+                "end": "19:30:00"
+            },
+            {
+                "type": "event",
+                "start": "19:30:00",
+                "end": "21:00:00"
+            }
+        ],
+        "ESSA_W_GND": [
+            {
+                "type": "event",
+                "start": "18:00:00",
+                "end": "19:30:00"
+            }
+        ],
+        "ESSA_W_TWR": [
+            {
+                "type": "event",
+                "start": "18:00:00",
+                "end": "19:30:00"
+            },
+            {
+                "type": "event",
+                "start": "19:30:00",
+                "end": "21:00:00"
+            }
+        ],
+        "ESNQ_TWR": [
+            {
+                "type": "booking",
+                "start": "18:00:00",
+                "end": "19:00:00"
+            }
+        ],
+        "ESGG_TWR": [
+            {
+                "type": "training",
+                "start": "18:00:00",
+                "end": "21:00:00"
+            },
+            {
+                "type": "training",
+                "start": "18:00:00",
+                "end": "20:00:00"
+            }
+        ],
+        "ESOS_K_CTR": [
+            {
+                "type": "booking",
+                "start": "18:00:00",
+                "end": "21:00:00"
+            }
+        ],
+        "ESPA_APP": [
+            {
+                "type": "booking",
+                "start": "18:00:00",
+                "end": "21:00:00"
+            }
+        ],
+        "ESPA_TWR": [
+            {
+                "type": "booking",
+                "start": "18:00:00",
+                "end": "21:00:00"
+            }
+        ],
+        "ESGG_E_APP": [
+            {
+                "type": "exam",
+                "start": "18:00:00",
+                "end": "21:00:00"
+            }
+        ]
+    },
+    "EDWW": {},
+    "EKDK": {},
+    "EFIN": {},
+    "ENOR": {},
+    "EVRR": {},
+    "EETT": {},
+    "EPWW": {},
+    "UMKK": {}
+}
