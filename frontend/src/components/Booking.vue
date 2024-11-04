@@ -85,8 +85,9 @@
         <div class="card-title">{{ index }}</div>
         <v-card-text>
           <div class="item-container">
-              {{ group.start }}
-              {{ group.end }}
+              {{ group.date }}
+              <br>
+              {{ group.start }} - {{ group.end }}
           </div>
         </v-card-text>
       </v-card>
@@ -142,8 +143,8 @@ const loadBookings = () => {
       for (var position in bookingsData[FIR]) {
         try { //Trys to add it to "tempBooking" 
           tempBooking[position] = {
-            type : bookingsData[FIR][position].type,
-            date : bookingsData[FIR][position].date,
+            type : bookingsData[FIR][position][0].type,
+            date : bookingsData[FIR][position][0].date,
             start : bookingsData[FIR][position][0].start,
             end : bookingsData[FIR][position][0].end
           };
@@ -154,6 +155,8 @@ const loadBookings = () => {
       }
     }
   }
+
+  console.log(tempBooking)
 
   bookingGroups.value = tempBooking
   loading.value = false;

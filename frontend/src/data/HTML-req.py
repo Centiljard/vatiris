@@ -10,9 +10,9 @@ FIRS = {
         'SCA'
     ],
     'EDWW':[
-        'XX',
+        'ED',
         'EUD',
-        'SCA'
+        'GER'
     ],
     'EKDK': [
         'EK',
@@ -68,9 +68,9 @@ for FIR in FIRS:
     #Reformat to the way we want it
     for booking in apiData:
         try:
-            Temp_bookingDict[booking["callsign"]].append({'type': booking['type'], 'Date':booking['start'].split()[-2], 'start':booking['start'].split()[-1], 'end':booking['end'].split()[-1]})
+            Temp_bookingDict[booking["callsign"]].append({'type': booking['type'], 'date':booking['start'].split()[-2], 'start':booking['start'].split()[-1], 'end':booking['end'].split()[-1]})
         except:
-            Temp_bookingDict[booking["callsign"]] = [{'type': booking['type'], 'Date':booking['start'].split()[-2], 'start':booking['start'].split()[-1], 'end':booking['end'].split()[-1]}]
+            Temp_bookingDict[booking["callsign"]] = [{'type': booking['type'], 'date':booking['start'].split()[-2], 'start':booking['start'].split()[-1], 'end':booking['end'].split()[-1]}]
 
     bookingDict[FIR] = Temp_bookingDict
 
